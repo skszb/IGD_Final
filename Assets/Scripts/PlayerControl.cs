@@ -49,7 +49,7 @@ public class PlayerControl : MonoBehaviour
         movement.y = rb.velocity.y;
         rb.velocity = movement;
 
-        if (Input.GetKeyDown("space")) {
+        if (Input.GetKeyDown("space") && grounded) {
             rb.velocity = new Vector3(0, jumpSpeed, 0);
         }
     }
