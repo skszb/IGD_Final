@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    [SerializeField]
+    private Transform spawnPoint;
+    
     [SerializeField]
     private float moveSpeed = 5;
     [SerializeField]
@@ -49,9 +53,9 @@ public class PlayerControl : MonoBehaviour
         movement.y = rb.velocity.y;
         rb.velocity = movement;
 
-        if (Input.GetKeyDown("space") && grounded) {
+        /*if (Input.GetKeyDown("space") && grounded) {
             rb.velocity = new Vector3(0, jumpSpeed, 0);
-        }
+        }*/
     }
 
     private void CameraRotation() {
@@ -65,5 +69,13 @@ public class PlayerControl : MonoBehaviour
 
         cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
         transform.rotation = Quaternion.Euler(0, yRotation, 0);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.CompareTag("Monster"))
+        {
+            transform.position = spawnPoint.position;
+        }
     }
 }
